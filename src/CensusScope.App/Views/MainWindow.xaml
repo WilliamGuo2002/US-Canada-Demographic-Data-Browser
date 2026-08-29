@@ -1,0 +1,271 @@
+<Window x:Class="CensusScope.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="CensusScope — US &amp; Canada Demographic Data Browser"
+        Width="1240" Height="780" MinWidth="1000" MinHeight="640"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <Style x:Key="RightCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+
+        <!-- Top tool row -->
+        <Border DockPanel.Dock="Top" Padding="10,8" BorderBrush="#DDDDDD" BorderThickness="0,0,0,1">
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="Settings…" Padding="14,4"
+                        VerticalAlignment="Center" Command="{Binding OpenSettingsCommand}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Country:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <ComboBox Width="220" Margin="0" VerticalAlignment="Center"
+                              ItemsSource="{Binding Countries}"
+                              SelectedItem="{Binding SelectedCountry}"
+                              IsEnabled="{Binding IsIdle}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Catalog.CountryName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Demo-mode banner: makes synthetic U.S. figures impossible to mistake for real data -->
+        <Border DockPanel.Dock="Top" Background="#FFF4CE" BorderBrush="#E8C86A" BorderThickness="0,0,0,1"
+                Padding="10,6" Visibility="{Binding IsDemoMode, Converter={StaticResource BoolToVis}}">
+            <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="#5C4400"
+                       Text="DEMO MODE — no API keys in use. U.S. figures are synthetic placeholders, not Census estimates, and plain-language answers are canned. Canadian figures are real Statistics Canada data. Restart without --demo and enter API keys for live U.S. data."/>
+        </Border>
+
+        <!-- First-run call to action: U.S. data needs a (free) Census API key, and the
+             status bar alone is too easy to miss. Points straight at the Settings dialog. -->
+        <Border DockPanel.Dock="Top" Background="#E8F1FB" BorderBrush="#9DBFE3" BorderThickness="0,0,0,1"
+                Padding="10,8" Visibility="{Binding CensusKeyMissing, Converter={StaticResource BoolToVis}}">
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="Open Settings…" Padding="14,4"
+                        VerticalAlignment="Center" Margin="10,0,0,0"
+                        Command="{Binding OpenSettingsCommand}"/>
+                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#1B3A5C" VerticalAlignment="Center">
+                    <Run FontWeight="SemiBold" Text="U.S. data needs a free Census API key."/>
+                    <Run Text=" Get one at api.census.gov/data/key_signup.html, click the activation link in the confirmation email, then paste the key into Settings. Canadian data works without any key."/>
+                </TextBlock>
+            </DockPanel>
+        </Border>
+
+        <!-- Status bar -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem DockPanel.Dock="Right">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Cancel" Padding="10,0" Margin="0,0,8,0"
+                            Command="{Binding CancelOperationCommand}"
+                            Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"/>
+                    <ProgressBar Width="120" Height="14" IsIndeterminate="True"
+                                 Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"/>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem>
+                <!-- Hover shows the full text; double-click opens it in a copyable dialog. -->
+                <TextBlock Text="{Binding StatusText}" TextTrimming="CharacterEllipsis"
+                           MouseLeftButtonDown="OnStatusTextMouseDown">
+                    <TextBlock.ToolTip>
+                        <ToolTip MaxWidth="620">
+                            <TextBlock Text="{Binding StatusText}" TextWrapping="Wrap"/>
+                        </ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- Main area -->
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: query builder -->
+            <ScrollViewer Grid.Column="0" Margin="0,0,10,0" VerticalScrollBarVisibility="Auto">
+                <!-- Disabled while an operation is in flight so user selections cannot
+                     interleave with programmatic ones (see MainViewModel._suppressCount). -->
+                <StackPanel IsEnabled="{Binding IsIdle}">
+                    <GroupBox Header="Geography">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Level"/>
+                            <ComboBox ItemsSource="{Binding Levels}"
+                                      SelectedItem="{Binding SelectedLevel}"
+                                      DisplayMemberPath="DisplayName"/>
+
+                            <TextBlock Style="{StaticResource FieldLabel}"
+                                       Text="{Binding Ancestor1Label}"
+                                       Visibility="{Binding Ancestor1Visible, Converter={StaticResource BoolToVis}}"/>
+                            <ComboBox ItemsSource="{Binding Ancestor1Units}"
+                                      SelectedItem="{Binding SelectedAncestor1}"
+                                      DisplayMemberPath="Name"
+                                      Visibility="{Binding Ancestor1Visible, Converter={StaticResource BoolToVis}}"/>
+
+                            <TextBlock Style="{StaticResource FieldLabel}"
+                                       Text="{Binding Ancestor2Label}"
+                                       Visibility="{Binding Ancestor2Visible, Converter={StaticResource BoolToVis}}"/>
+                            <ComboBox ItemsSource="{Binding Ancestor2Units}"
+                                      SelectedItem="{Binding SelectedAncestor2}"
+                                      DisplayMemberPath="Display"
+                                      Visibility="{Binding Ancestor2Visible, Converter={StaticResource BoolToVis}}"/>
+
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Area (type below to filter the list)"/>
+                            <TextBox Margin="0,2,0,4" Padding="4,3"
+                                     Text="{Binding UnitFilter, UpdateSourceTrigger=PropertyChanged}"
+                                     ToolTip="Filters the area list; accents are ignored (montreal matches Montréal)."/>
+                            <ComboBox ItemsSource="{Binding Units}"
+                                      SelectedItem="{Binding SelectedUnit}"
+                                      DisplayMemberPath="Display"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Dataset">
+                        <StackPanel>
+                            <ListBox Height="210"
+                                     ItemsSource="{Binding Datasets}"
+                                     SelectedItem="{Binding SelectedDataset}"
+                                     DisplayMemberPath="DisplayName"/>
+                            <TextBlock FontSize="11" Foreground="Gray" TextWrapping="Wrap" Margin="0,6,0,0">
+                                <Run Text="Universe: "/><Run Text="{Binding SelectedDataset.Universe, Mode=OneWay}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <Button Content="Load data" FontWeight="Bold" Height="34"
+                            Command="{Binding LoadDataCommand}"/>
+                    <Button Content="Export CSV…" Height="30" Margin="0,6,0,0"
+                            Command="{Binding ExportCsvCommand}"
+                            ToolTip="Save the loaded table as CSV: raw values, margins of error, area codes, and the source citation."/>
+
+                    <!-- Attribution required by the Census Bureau API Terms of Service
+                         ("Attribution" section) and by the Statistics Canada Open Licence.
+                         The Census wording is prescribed verbatim — do not reword it. -->
+                    <Border Margin="0,14,0,0" Padding="8" Background="#F4F4F4"
+                            BorderBrush="#E0E0E0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock FontSize="10" Foreground="#555" TextWrapping="Wrap"
+                                       Text="This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau."/>
+                            <TextBlock FontSize="10" Foreground="#555" TextWrapping="Wrap" Margin="0,6,0,0"
+                                       Text="Adapted from Statistics Canada, Census of Population 2021. This does not constitute an endorsement by Statistics Canada of this product."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Right: results (table/map tabs) + plain-language panel -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+
+                <TabControl x:Name="ResultTabs" Grid.Row="0">
+                    <TabItem Header="Table">
+                        <Grid Margin="0,6,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Result header -->
+                            <StackPanel Grid.Row="0" Margin="0,0,0,6"
+                                        Visibility="{Binding HasResult, Converter={StaticResource BoolToVis}}">
+                                <TextBlock Text="{Binding ResultTitle}" FontSize="16" FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding ResultSource}" FontSize="11" Foreground="Gray"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock FontSize="11" Foreground="Gray" TextWrapping="Wrap">
+                                    <Run Text="Universe: "/><Run Text="{Binding ResultUniverse, Mode=OneWay}"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding ResultNotes}" FontSize="11" Foreground="Gray"
+                                           FontStyle="Italic" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <!-- Results grid -->
+                            <DataGrid x:Name="ResultsGrid" Grid.Row="1"
+                                      IsReadOnly="True"
+                                      AutoGenerateColumns="True"
+                                      ItemsSource="{Binding ResultView}"
+                                      HeadersVisibility="Column"
+                                      GridLinesVisibility="Horizontal"
+                                      AlternatingRowBackground="#F7F7F7"
+                                      CanUserAddRows="False"
+                                      EnableRowVirtualization="True"
+                                      FrozenColumnCount="1"/>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Map">
+                        <DockPanel Margin="0,6,0,0">
+                            <!-- Map toolbar -->
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+                                <TextBlock DockPanel.Dock="Left" Text="Map variable"
+                                           VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ComboBox DockPanel.Dock="Left" MinWidth="260" VerticalAlignment="Center"
+                                          ItemsSource="{Binding Map.MapVariables}"
+                                          DisplayMemberPath="Label"
+                                          SelectedItem="{Binding Map.SelectedMapVariable}"/>
+                                <Button DockPanel.Dock="Left" Content="Render map" Padding="14,4"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Command="{Binding Map.RenderMapCommand}"/>
+                                <Button DockPanel.Dock="Left" Content="Cancel" Padding="10,4"
+                                        Margin="6,0,0,0" VerticalAlignment="Center"
+                                        Command="{Binding Map.CancelRenderCommand}"
+                                        Visibility="{Binding Map.IsMapBusy, Converter={StaticResource BoolToVis}}"/>
+                                <TextBlock Text="{Binding Map.MapStatus}" FontSize="11" Foreground="Gray"
+                                           TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </DockPanel>
+
+                            <!-- Map surface: WebView2CompositionControl avoids the HwndHost
+                                 airspace problem (a plain WebView2 would paint over combo box
+                                 dropdowns and tooltips). -->
+                            <Grid>
+                                <wv2:WebView2CompositionControl x:Name="MapWeb"/>
+                                <Border Background="#E6FFFFFF"
+                                        Visibility="{Binding Map.MapUnavailable, Converter={StaticResource BoolToVis}}">
+                                    <TextBlock Text="{Binding Map.MapUnavailableReason}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               TextWrapping="Wrap" TextAlignment="Center"
+                                               MaxWidth="440" Foreground="#444444"/>
+                                </Border>
+                            </Grid>
+                        </DockPanel>
+                    </TabItem>
+                </TabControl>
+
+                <!-- Plain-language panel -->
+                <GroupBox Grid.Row="1" Header="Ask in plain language (Gemini)" Margin="0,8,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <Button DockPanel.Dock="Right" Content="Ask" Padding="16,4" Margin="6,0,0,0"
+                                    Command="{Binding AskCommand}"/>
+                            <TextBox Padding="4,3" VerticalContentAlignment="Center"
+                                     Text="{Binding NlQuery, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding AskCommand}"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </DockPanel>
+                        <TextBlock Grid.Row="1" Text="{Binding NlInterpretation}" FontSize="11"
+                                   Foreground="Gray" FontStyle="Italic" TextWrapping="Wrap"
+                                   Margin="0,4,0,2"/>
+                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding NlAnswer}" TextWrapping="Wrap"/>
+                        </ScrollViewer>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

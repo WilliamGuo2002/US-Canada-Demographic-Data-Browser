@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.19.9.0-->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+  <message:Header>
+    <message:ID>IDREF1535</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2026-08-25T18:55:48.3435061+00:00</message:Prepared>
+    <message:Sender id="Unknown" />
+    <message:Receiver id="Unknown" />
+  </message:Header>
+  <message:Structures>
+    <structure:Codelists>
+      <structure:Codelist id="CL_GEO_PR" agencyID="STC_CP" version="1.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation id="CHANGED">
+            <common:AnnotationTitle>F69BEBFFD2FCA0192D960ECF744F91D1</common:AnnotationTitle>
+            <common:AnnotationType>CHANGED</common:AnnotationType>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Country, Province &amp; Territory</common:Name>
+        <common:Name xml:lang="fr">Pays, province et territoire</common:Name>
+        <common:Description xml:lang="en">Geography - Country, Province &amp; Territory (PR)</common:Description>
+        <common:Description xml:lang="fr">Géographie - Pays, province et territoire (PR)</common:Description>
+        <structure:Code id="2021A000011124">
+          <common:Name xml:lang="en">Canada</common:Name>
+          <common:Name xml:lang="fr">Canada</common:Name>
+          <common:Description xml:lang="en">Canada [Country]</common:Description>
+          <common:Description xml:lang="fr">Canada [Pays]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000210">
+          <common:Name xml:lang="en">Newfoundland and Labrador</common:Name>
+          <common:Name xml:lang="fr">Terre-Neuve-et-Labrador</common:Name>
+          <common:Description xml:lang="en">Newfoundland and Labrador [Province]</common:Description>
+          <common:Description xml:lang="fr">Terre-Neuve-et-Labrador [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000211">
+          <common:Name xml:lang="en">Prince Edward Island</common:Name>
+          <common:Name xml:lang="fr">Île-du-Prince-Édouard</common:Name>
+          <common:Description xml:lang="en">Prince Edward Island [Province]</common:Description>
+          <common:Description xml:lang="fr">Île-du-Prince-Édouard [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000212">
+          <common:Name xml:lang="en">Nova Scotia</common:Name>
+          <common:Name xml:lang="fr">Nouvelle-Écosse</common:Name>
+          <common:Description xml:lang="en">Nova Scotia [Province]</common:Description>
+          <common:Description xml:lang="fr">Nouvelle-Écosse [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000213">
+          <common:Name xml:lang="en">New Brunswick</common:Name>
+          <common:Name xml:lang="fr">Nouveau-Brunswick</common:Name>
+          <common:Description xml:lang="en">New Brunswick [Province]</common:Description>
+          <common:Description xml:lang="fr">Nouveau-Brunswick [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000224">
+          <common:Name xml:lang="en">Quebec</common:Name>
+          <common:Name xml:lang="fr">Québec</common:Name>
+          <common:Description xml:lang="en">Quebec [Province]</common:Description>
+          <common:Description xml:lang="fr">Québec [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000235">
+          <common:Name xml:lang="en">Ontario</common:Name>
+          <common:Name xml:lang="fr">Ontario</common:Name>
+          <common:Description xml:lang="en">Ontario [Province]</common:Description>
+          <common:Description xml:lang="fr">Ontario [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000246">
+          <common:Name xml:lang="en">Manitoba</common:Name>
+          <common:Name xml:lang="fr">Manitoba</common:Name>
+          <common:Description xml:lang="en">Manitoba [Province]</common:Description>
+          <common:Description xml:lang="fr">Manitoba [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000247">
+          <common:Name xml:lang="en">Saskatchewan</common:Name>
+          <common:Name xml:lang="fr">Saskatchewan</common:Name>
+          <common:Description xml:lang="en">Saskatchewan [Province]</common:Description>
+          <common:Description xml:lang="fr">Saskatchewan [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000248">
+          <common:Name xml:lang="en">Alberta</common:Name>
+          <common:Name xml:lang="fr">Alberta</common:Name>
+          <common:Description xml:lang="en">Alberta [Province]</common:Description>
+          <common:Description xml:lang="fr">Alberta [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000259">
+          <common:Name xml:lang="en">British Columbia</common:Name>
+          <common:Name xml:lang="fr">Colombie-Britannique</common:Name>
+          <common:Description xml:lang="en">British Columbia [Province]</common:Description>
+          <common:Description xml:lang="fr">Colombie-Britannique [Province]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000260">
+          <common:Name xml:lang="en">Yukon</common:Name>
+          <common:Name xml:lang="fr">Yukon</common:Name>
+          <common:Description xml:lang="en">Yukon [Territory]</common:Description>
+          <common:Description xml:lang="fr">Yukon [Territoire]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000261">
+          <common:Name xml:lang="en">Northwest Territories</common:Name>
+          <common:Name xml:lang="fr">Territoires du Nord-Ouest</common:Name>
+          <common:Description xml:lang="en">Northwest Territories [Territory]</common:Description>
+          <common:Description xml:lang="fr">Territoires du Nord-Ouest [Territoire]</common:Description>
+        </structure:Code>
+        <structure:Code id="2021A000262">
+          <common:Name xml:lang="en">Nunavut</common:Name>
+          <common:Name xml:lang="fr">Nunavut</common:Name>
+          <common:Description xml:lang="en">Nunavut [Territory]</common:Description>
+          <common:Description xml:lang="fr">Nunavut [Territoire]</common:Description>
+        </structure:Code>
+      </structure:Codelist>
+    </structure:Codelists>
+  </message:Structures>
+</message:Structure>

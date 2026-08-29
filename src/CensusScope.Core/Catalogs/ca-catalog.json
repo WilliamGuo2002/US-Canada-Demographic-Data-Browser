@@ -1,0 +1,844 @@
+{
+  "countryCode": "CA",
+  "countryName": "Canada",
+  "sourceName": "Statistics Canada, Census of Population 2021 (Census Profile)",
+  "geoLevels": [
+    {
+      "code": "PR",
+      "displayName": "Province / Territory",
+      "parent": null
+    },
+    {
+      "code": "CD",
+      "displayName": "Census division",
+      "parent": "PR"
+    },
+    {
+      "code": "CSD",
+      "displayName": "Census subdivision (municipality)",
+      "parent": "CD"
+    }
+  ],
+  "datasets": [
+    {
+      "key": "population_dwellings",
+      "displayName": "Population and dwellings",
+      "sourceTable": "Census Profile 2021 - Population and dwelling counts",
+      "universe": "Total population and all private dwellings, 100% data",
+      "gendered": false,
+      "variables": [
+        {
+          "code": "1",
+          "label": "Population, 2021",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "3",
+          "label": "Population percentage change, 2016 to 2021",
+          "indent": 0,
+          "format": "percent"
+        },
+        {
+          "code": "4",
+          "label": "Total private dwellings",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "5",
+          "label": "Private dwellings occupied by usual residents",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "6",
+          "label": "Population density per square kilometre",
+          "indent": 0,
+          "format": "decimal"
+        },
+        {
+          "code": "7",
+          "label": "Land area in square kilometres",
+          "indent": 0,
+          "format": "area"
+        }
+      ],
+      "compareVariables": [
+        "1",
+        "6"
+      ],
+      "mapVariables": [
+        {
+          "key": "pop_density",
+          "label": "Population density (per km²)",
+          "numerator": [
+            "6"
+          ],
+          "kind": "direct",
+          "format": "decimal"
+        },
+        {
+          "key": "pop_change",
+          "label": "Population change 2016 to 2021 (%)",
+          "numerator": [
+            "3"
+          ],
+          "kind": "direct",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "age_gender",
+      "displayName": "Age groups by gender",
+      "sourceTable": "Census Profile 2021 - Age",
+      "universe": "Total population, 100% data",
+      "notes": "2021 reports gender (Men+ / Women+), not sex; non-binary people are distributed within these categories.",
+      "variables": [
+        {
+          "code": "8",
+          "label": "Total - Age groups of the population - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "9",
+          "label": "0 to 14 years",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "10",
+          "label": "0 to 4 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "11",
+          "label": "5 to 9 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "12",
+          "label": "10 to 14 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "13",
+          "label": "15 to 64 years",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "14",
+          "label": "15 to 19 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "15",
+          "label": "20 to 24 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "16",
+          "label": "25 to 29 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "17",
+          "label": "30 to 34 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "18",
+          "label": "35 to 39 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "19",
+          "label": "40 to 44 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "20",
+          "label": "45 to 49 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "21",
+          "label": "50 to 54 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "22",
+          "label": "55 to 59 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "23",
+          "label": "60 to 64 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "24",
+          "label": "65 years and over",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "25",
+          "label": "65 to 69 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "26",
+          "label": "70 to 74 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "27",
+          "label": "75 to 79 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "28",
+          "label": "80 to 84 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "29",
+          "label": "85 years and over",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "30",
+          "label": "85 to 89 years",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "31",
+          "label": "90 to 94 years",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "32",
+          "label": "95 to 99 years",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "33",
+          "label": "100 years and over",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "34",
+          "label": "Total - Distribution (%) of the population by broad age groups - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "35",
+          "label": "0 to 14 years",
+          "indent": 1,
+          "format": "percent"
+        },
+        {
+          "code": "36",
+          "label": "15 to 64 years",
+          "indent": 1,
+          "format": "percent"
+        },
+        {
+          "code": "37",
+          "label": "65 years and over",
+          "indent": 1,
+          "format": "percent"
+        },
+        {
+          "code": "38",
+          "label": "85 years and over",
+          "indent": 1,
+          "format": "percent"
+        },
+        {
+          "code": "39",
+          "label": "Average age of the population",
+          "indent": 0,
+          "format": "decimal"
+        },
+        {
+          "code": "40",
+          "label": "Median age of the population",
+          "indent": 0,
+          "format": "decimal"
+        }
+      ],
+      "compareVariables": [
+        "8",
+        "40"
+      ],
+      "mapVariables": [
+        {
+          "key": "median_age",
+          "label": "Median age",
+          "numerator": [
+            "40"
+          ],
+          "kind": "direct",
+          "format": "decimal"
+        },
+        {
+          "key": "pct_65plus",
+          "label": "Population 65 and over (%)",
+          "numerator": [
+            "24"
+          ],
+          "denominator": "8",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "income_individuals",
+      "displayName": "Individual income (2020)",
+      "sourceTable": "Census Profile 2021 - Income",
+      "universe": "Population aged 15 years and over in private households, 100% data (CRA administrative records, 2020 income year)",
+      "variables": [
+        {
+          "code": "111",
+          "label": "Total - Income statistics in 2020 for the population aged 15 years and over in private households - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "113",
+          "label": "Median total income in 2020 among recipients ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "115",
+          "label": "Median after-tax income in 2020 among recipients ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "128",
+          "label": "Average total income in 2020 among recipients ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "130",
+          "label": "Average after-tax income in 2020 among recipients ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "148",
+          "label": "Total - Total income groups in 2020 for the population aged 15 years and over in private households - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "149",
+          "label": "Without total income",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "150",
+          "label": "With total income",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "151",
+          "label": "Under $10,000 (including loss)",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "152",
+          "label": "$10,000 to $19,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "153",
+          "label": "$20,000 to $29,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "154",
+          "label": "$30,000 to $39,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "155",
+          "label": "$40,000 to $49,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "156",
+          "label": "$50,000 to $59,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "157",
+          "label": "$60,000 to $69,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "158",
+          "label": "$70,000 to $79,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "159",
+          "label": "$80,000 to $89,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "160",
+          "label": "$90,000 to $99,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "161",
+          "label": "$100,000 and over",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "162",
+          "label": "$100,000 to $149,999",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "163",
+          "label": "$150,000 and over",
+          "indent": 3,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "113",
+        "115"
+      ],
+      "mapVariables": [
+        {
+          "key": "median_income",
+          "label": "Median total income, 2020",
+          "numerator": [
+            "113"
+          ],
+          "kind": "direct",
+          "format": "currency"
+        }
+      ]
+    },
+    {
+      "key": "income_households",
+      "displayName": "Household income (2020)",
+      "sourceTable": "Census Profile 2021 - Income",
+      "universe": "Private households, 100% data (CRA administrative records, 2020 income year)",
+      "gendered": false,
+      "variables": [
+        {
+          "code": "228",
+          "label": "Total - Income statistics for private households - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "229",
+          "label": "Median total income of household in 2020 ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "230",
+          "label": "Median after-tax income of household in 2020 ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "238",
+          "label": "Average total income of household in 2020 ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "239",
+          "label": "Average after-tax income of household in 2020 ($)",
+          "indent": 1,
+          "format": "currency"
+        },
+        {
+          "code": "246",
+          "label": "Total - Household total income groups in 2020 for private households - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "247",
+          "label": "Under $5,000",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "248",
+          "label": "$5,000 to $9,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "249",
+          "label": "$10,000 to $14,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "250",
+          "label": "$15,000 to $19,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "251",
+          "label": "$20,000 to $24,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "252",
+          "label": "$25,000 to $29,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "253",
+          "label": "$30,000 to $34,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "254",
+          "label": "$35,000 to $39,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "255",
+          "label": "$40,000 to $44,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "256",
+          "label": "$45,000 to $49,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "257",
+          "label": "$50,000 to $59,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "258",
+          "label": "$60,000 to $69,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "259",
+          "label": "$70,000 to $79,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "260",
+          "label": "$80,000 to $89,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "261",
+          "label": "$90,000 to $99,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "262",
+          "label": "$100,000 and over",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "263",
+          "label": "$100,000 to $124,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "264",
+          "label": "$125,000 to $149,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "265",
+          "label": "$150,000 to $199,999",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "266",
+          "label": "$200,000 and over",
+          "indent": 2,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "229",
+        "230"
+      ],
+      "mapVariables": [
+        {
+          "key": "median_hh_income",
+          "label": "Median household income, 2020",
+          "numerator": [
+            "229"
+          ],
+          "kind": "direct",
+          "format": "currency"
+        },
+        {
+          "key": "median_hh_income_at",
+          "label": "Median after-tax household income, 2020",
+          "numerator": [
+            "230"
+          ],
+          "kind": "direct",
+          "format": "currency"
+        }
+      ]
+    },
+    {
+      "key": "low_income",
+      "displayName": "Low income (LIM-AT / LICO-AT)",
+      "sourceTable": "Census Profile 2021 - Income",
+      "universe": "Population in private households (LICO: population to whom the low-income concept applies)",
+      "notes": "LIM-AT and LICO-AT are Canada's two low-income lines; prevalence rows are percentages.",
+      "variables": [
+        {
+          "code": "321",
+          "label": "Total - LIM low-income status in 2020 for the population in private households - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "326",
+          "label": "In low income based on the Low-income measure, after tax (LIM-AT)",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "331",
+          "label": "Prevalence of low income based on the Low-income measure, after tax (LIM-AT) (%)",
+          "indent": 1,
+          "format": "percent"
+        },
+        {
+          "code": "336",
+          "label": "Total - LICO low-income status in 2020 for the population in private households to whom the low-income concept is applicable - 100% data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "341",
+          "label": "In low income based on the Low-income cut-offs, after tax (LICO-AT)",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "346",
+          "label": "Prevalence of low income based on the Low-income cut-offs, after tax (LICO-AT) (%)",
+          "indent": 1,
+          "format": "percent"
+        }
+      ],
+      "compareVariables": [
+        "331",
+        "346"
+      ],
+      "mapVariables": [
+        {
+          "key": "lim_at_prevalence",
+          "label": "LIM-AT low-income prevalence (%)",
+          "numerator": [
+            "331"
+          ],
+          "kind": "direct",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "education_25_64",
+      "displayName": "Highest certificate, diploma or degree (25-64)",
+      "sourceTable": "Census Profile 2021 - Education",
+      "universe": "Population aged 25 to 64 in private households, 25% sample data",
+      "notes": "25% sample data: values carry sampling variability (95% confidence intervals shown where published).",
+      "variables": [
+        {
+          "code": "2014",
+          "label": "Total - Highest certificate, diploma or degree for the population aged 25 to 64 years in private households - 25% sample data",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "2015",
+          "label": "No certificate, diploma or degree",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "2016",
+          "label": "High (secondary) school diploma or equivalency certificate",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "2017",
+          "label": "Postsecondary certificate, diploma or degree",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "2018",
+          "label": "Postsecondary certificate or diploma below bachelor level",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "2019",
+          "label": "Apprenticeship or trades certificate or diploma",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2020",
+          "label": "Non-apprenticeship trades certificate or diploma",
+          "indent": 4,
+          "format": "count"
+        },
+        {
+          "code": "2021",
+          "label": "Apprenticeship certificate",
+          "indent": 4,
+          "format": "count"
+        },
+        {
+          "code": "2022",
+          "label": "College, CEGEP or other non-university certificate or diploma",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2023",
+          "label": "University certificate or diploma below bachelor level",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2024",
+          "label": "Bachelor’s degree or higher",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "2025",
+          "label": "Bachelor's degree",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2026",
+          "label": "University certificate or diploma above bachelor level",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2027",
+          "label": "Degree in medicine, dentistry, veterinary medicine or optometry",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2028",
+          "label": "Master's degree",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "2029",
+          "label": "Earned doctorate",
+          "indent": 3,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "2014",
+        "2024"
+      ],
+      "mapVariables": [
+        {
+          "key": "pct_bachelors_plus",
+          "label": "Bachelor's or higher, 25–64 (%)",
+          "numerator": [
+            "2024"
+          ],
+          "denominator": "2014",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    }
+  ]
+}

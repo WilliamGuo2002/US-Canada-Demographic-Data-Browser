@@ -1,0 +1,1055 @@
+{
+  "countryCode": "US",
+  "countryName": "United States",
+  "sourceName": "U.S. Census Bureau, American Community Survey 2020-2024 5-Year Estimates",
+  "geoLevels": [
+    {
+      "code": "state",
+      "displayName": "State",
+      "parent": null
+    },
+    {
+      "code": "county",
+      "displayName": "County",
+      "parent": "state"
+    },
+    {
+      "code": "place",
+      "displayName": "Place (city / town / CDP)",
+      "parent": "state"
+    }
+  ],
+  "datasets": [
+    {
+      "key": "population_overview",
+      "displayName": "Population overview",
+      "sourceTable": "B01003 / B01002 / B19301",
+      "universe": "Total population",
+      "notes": "Median age and per-capita income are point estimates with 90% confidence margins of error.",
+      "variables": [
+        {
+          "code": "B01003_001E",
+          "label": "Total population",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B01002_001E",
+          "label": "Median age - Total",
+          "indent": 0,
+          "format": "decimal"
+        },
+        {
+          "code": "B01002_002E",
+          "label": "Median age - Male",
+          "indent": 1,
+          "format": "decimal"
+        },
+        {
+          "code": "B01002_003E",
+          "label": "Median age - Female",
+          "indent": 1,
+          "format": "decimal"
+        },
+        {
+          "code": "B19301_001E",
+          "label": "Per capita income (past 12 months, 2024 dollars)",
+          "indent": 0,
+          "format": "currency"
+        }
+      ],
+      "compareVariables": [
+        "B01003_001E",
+        "B01002_001E"
+      ],
+      "mapVariables": [
+        {
+          "key": "pop_density",
+          "label": "Population density (per km²)",
+          "numerator": [
+            "B01003_001E"
+          ],
+          "kind": "density",
+          "format": "decimal"
+        },
+        {
+          "key": "median_age",
+          "label": "Median age",
+          "numerator": [
+            "B01002_001E"
+          ],
+          "kind": "direct",
+          "format": "decimal"
+        },
+        {
+          "key": "per_capita_income",
+          "label": "Per capita income",
+          "numerator": [
+            "B19301_001E"
+          ],
+          "kind": "direct",
+          "format": "currency"
+        }
+      ]
+    },
+    {
+      "key": "sex_by_age",
+      "displayName": "Sex by age",
+      "sourceTable": "B01001",
+      "universe": "Total population",
+      "variables": [
+        {
+          "code": "B01001_001E",
+          "label": "Total",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B01001_002E",
+          "label": "Male",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B01001_003E",
+          "label": "Under 5 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_004E",
+          "label": "5 to 9 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_005E",
+          "label": "10 to 14 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_006E",
+          "label": "15 to 17 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_007E",
+          "label": "18 and 19 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_008E",
+          "label": "20 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_009E",
+          "label": "21 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_010E",
+          "label": "22 to 24 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_011E",
+          "label": "25 to 29 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_012E",
+          "label": "30 to 34 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_013E",
+          "label": "35 to 39 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_014E",
+          "label": "40 to 44 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_015E",
+          "label": "45 to 49 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_016E",
+          "label": "50 to 54 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_017E",
+          "label": "55 to 59 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_018E",
+          "label": "60 and 61 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_019E",
+          "label": "62 to 64 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_020E",
+          "label": "65 and 66 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_021E",
+          "label": "67 to 69 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_022E",
+          "label": "70 to 74 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_023E",
+          "label": "75 to 79 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_024E",
+          "label": "80 to 84 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_025E",
+          "label": "85 years and over",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_026E",
+          "label": "Female",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B01001_027E",
+          "label": "Under 5 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_028E",
+          "label": "5 to 9 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_029E",
+          "label": "10 to 14 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_030E",
+          "label": "15 to 17 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_031E",
+          "label": "18 and 19 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_032E",
+          "label": "20 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_033E",
+          "label": "21 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_034E",
+          "label": "22 to 24 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_035E",
+          "label": "25 to 29 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_036E",
+          "label": "30 to 34 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_037E",
+          "label": "35 to 39 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_038E",
+          "label": "40 to 44 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_039E",
+          "label": "45 to 49 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_040E",
+          "label": "50 to 54 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_041E",
+          "label": "55 to 59 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_042E",
+          "label": "60 and 61 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_043E",
+          "label": "62 to 64 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_044E",
+          "label": "65 and 66 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_045E",
+          "label": "67 to 69 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_046E",
+          "label": "70 to 74 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_047E",
+          "label": "75 to 79 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_048E",
+          "label": "80 to 84 years",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B01001_049E",
+          "label": "85 years and over",
+          "indent": 2,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "B01001_001E",
+        "B01001_002E",
+        "B01001_026E"
+      ],
+      "mapVariables": [
+        {
+          "key": "pct_female",
+          "label": "Female share of population (%)",
+          "numerator": [
+            "B01001_026E"
+          ],
+          "denominator": "B01001_001E",
+          "kind": "percent",
+          "format": "percent"
+        },
+        {
+          "key": "pct_65plus",
+          "label": "Population 65 and over (%)",
+          "numerator": [
+            "B01001_020E",
+            "B01001_021E",
+            "B01001_022E",
+            "B01001_023E",
+            "B01001_024E",
+            "B01001_025E",
+            "B01001_044E",
+            "B01001_045E",
+            "B01001_046E",
+            "B01001_047E",
+            "B01001_048E",
+            "B01001_049E"
+          ],
+          "denominator": "B01001_001E",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "household_income",
+      "displayName": "Household income (brackets + median)",
+      "sourceTable": "B19001 / B19013",
+      "universe": "Households",
+      "notes": "Income in the past 12 months, inflation-adjusted to 2024 dollars.",
+      "variables": [
+        {
+          "code": "B19001_001E",
+          "label": "Total",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B19001_002E",
+          "label": "Less than $10,000",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_003E",
+          "label": "$10,000 to $14,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_004E",
+          "label": "$15,000 to $19,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_005E",
+          "label": "$20,000 to $24,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_006E",
+          "label": "$25,000 to $29,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_007E",
+          "label": "$30,000 to $34,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_008E",
+          "label": "$35,000 to $39,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_009E",
+          "label": "$40,000 to $44,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_010E",
+          "label": "$45,000 to $49,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_011E",
+          "label": "$50,000 to $59,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_012E",
+          "label": "$60,000 to $74,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_013E",
+          "label": "$75,000 to $99,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_014E",
+          "label": "$100,000 to $124,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_015E",
+          "label": "$125,000 to $149,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_016E",
+          "label": "$150,000 to $199,999",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19001_017E",
+          "label": "$200,000 or more",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B19013_001E",
+          "label": "Median household income (past 12 months, 2024 dollars)",
+          "indent": 0,
+          "format": "currency"
+        }
+      ],
+      "compareVariables": [
+        "B19013_001E"
+      ],
+      "mapVariables": [
+        {
+          "key": "median_hh_income",
+          "label": "Median household income",
+          "numerator": [
+            "B19013_001E"
+          ],
+          "kind": "direct",
+          "format": "currency"
+        }
+      ]
+    },
+    {
+      "key": "education_by_sex",
+      "displayName": "Educational attainment by sex (25+)",
+      "sourceTable": "B15002",
+      "universe": "Population 25 years and over",
+      "variables": [
+        {
+          "code": "B15002_001E",
+          "label": "Total",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B15002_002E",
+          "label": "Male",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B15002_003E",
+          "label": "No schooling completed",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_004E",
+          "label": "Nursery to 4th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_005E",
+          "label": "5th and 6th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_006E",
+          "label": "7th and 8th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_007E",
+          "label": "9th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_008E",
+          "label": "10th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_009E",
+          "label": "11th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_010E",
+          "label": "12th grade, no diploma",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_011E",
+          "label": "High school graduate (includes equivalency)",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_012E",
+          "label": "Some college, less than 1 year",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_013E",
+          "label": "Some college, 1 or more years, no degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_014E",
+          "label": "Associate's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_015E",
+          "label": "Bachelor's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_016E",
+          "label": "Master's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_017E",
+          "label": "Professional school degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_018E",
+          "label": "Doctorate degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_019E",
+          "label": "Female",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B15002_020E",
+          "label": "No schooling completed",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_021E",
+          "label": "Nursery to 4th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_022E",
+          "label": "5th and 6th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_023E",
+          "label": "7th and 8th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_024E",
+          "label": "9th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_025E",
+          "label": "10th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_026E",
+          "label": "11th grade",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_027E",
+          "label": "12th grade, no diploma",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_028E",
+          "label": "High school graduate (includes equivalency)",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_029E",
+          "label": "Some college, less than 1 year",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_030E",
+          "label": "Some college, 1 or more years, no degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_031E",
+          "label": "Associate's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_032E",
+          "label": "Bachelor's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_033E",
+          "label": "Master's degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_034E",
+          "label": "Professional school degree",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B15002_035E",
+          "label": "Doctorate degree",
+          "indent": 2,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "B15002_001E",
+        "B15002_015E",
+        "B15002_032E"
+      ],
+      "mapVariables": [
+        {
+          "key": "pct_bachelors_plus",
+          "label": "Bachelor's degree or higher, 25+ (%)",
+          "numerator": [
+            "B15002_015E",
+            "B15002_016E",
+            "B15002_017E",
+            "B15002_018E",
+            "B15002_032E",
+            "B15002_033E",
+            "B15002_034E",
+            "B15002_035E"
+          ],
+          "denominator": "B15002_001E",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "race",
+      "displayName": "Race",
+      "sourceTable": "B02001",
+      "universe": "Total population",
+      "variables": [
+        {
+          "code": "B02001_001E",
+          "label": "Total",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B02001_002E",
+          "label": "White alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_003E",
+          "label": "Black or African American alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_004E",
+          "label": "American Indian and Alaska Native alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_005E",
+          "label": "Asian alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_006E",
+          "label": "Native Hawaiian and Other Pacific Islander alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_007E",
+          "label": "Some Other Race alone",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_008E",
+          "label": "Two or More Races",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B02001_009E",
+          "label": "Two races including Some Other Race",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B02001_010E",
+          "label": "Two races excluding Some Other Race, and three or more races",
+          "indent": 2,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "B02001_001E",
+        "B02001_002E",
+        "B02001_003E"
+      ],
+      "mapVariables": [
+        {
+          "key": "pct_white",
+          "label": "White alone (%)",
+          "numerator": [
+            "B02001_002E"
+          ],
+          "denominator": "B02001_001E",
+          "kind": "percent",
+          "format": "percent"
+        },
+        {
+          "key": "pct_black",
+          "label": "Black or African American alone (%)",
+          "numerator": [
+            "B02001_003E"
+          ],
+          "denominator": "B02001_001E",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    },
+    {
+      "key": "hispanic_or_latino",
+      "displayName": "Hispanic or Latino origin by race",
+      "sourceTable": "B03002",
+      "universe": "Total population",
+      "variables": [
+        {
+          "code": "B03002_001E",
+          "label": "Total",
+          "indent": 0,
+          "format": "count"
+        },
+        {
+          "code": "B03002_002E",
+          "label": "Not Hispanic or Latino",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B03002_003E",
+          "label": "White alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_004E",
+          "label": "Black or African American alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_005E",
+          "label": "American Indian and Alaska Native alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_006E",
+          "label": "Asian alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_007E",
+          "label": "Native Hawaiian and Other Pacific Islander alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_008E",
+          "label": "Some other race alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_009E",
+          "label": "Two or more races",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_010E",
+          "label": "Two races including Some other race",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "B03002_011E",
+          "label": "Two races excluding Some other race, and three or more races",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "B03002_012E",
+          "label": "Hispanic or Latino",
+          "indent": 1,
+          "format": "count"
+        },
+        {
+          "code": "B03002_013E",
+          "label": "White alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_014E",
+          "label": "Black or African American alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_015E",
+          "label": "American Indian and Alaska Native alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_016E",
+          "label": "Asian alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_017E",
+          "label": "Native Hawaiian and Other Pacific Islander alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_018E",
+          "label": "Some other race alone",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_019E",
+          "label": "Two or more races",
+          "indent": 2,
+          "format": "count"
+        },
+        {
+          "code": "B03002_020E",
+          "label": "Two races including Some other race",
+          "indent": 3,
+          "format": "count"
+        },
+        {
+          "code": "B03002_021E",
+          "label": "Two races excluding Some other race, and three or more races",
+          "indent": 3,
+          "format": "count"
+        }
+      ],
+      "compareVariables": [
+        "B03002_001E",
+        "B03002_012E",
+        "B03002_003E"
+      ],
+      "mapVariables": [
+        {
+          "key": "pct_hispanic",
+          "label": "Hispanic or Latino (%)",
+          "numerator": [
+            "B03002_012E"
+          ],
+          "denominator": "B03002_001E",
+          "kind": "percent",
+          "format": "percent"
+        }
+      ]
+    }
+  ]
+}

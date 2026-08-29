@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CensusScope.Core\CensusScope.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Offline map page + MapLibre assets, served to WebView2 via a virtual host mapping. -->
+    <None Update="Map\map.html" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Map\assets\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>

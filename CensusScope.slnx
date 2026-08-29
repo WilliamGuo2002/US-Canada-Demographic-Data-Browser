@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CensusScope.App/CensusScope.App.csproj" />
+    <Project Path="src/CensusScope.Core/CensusScope.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CensusScope.Core.Tests/CensusScope.Core.Tests.csproj" />
+  </Folder>
+</Solution>

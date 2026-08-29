@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CensusScope Map</title>
+<link rel="stylesheet" href="./assets/maplibre-gl.css">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #eef2f5;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  #map { position: absolute; inset: 0; }
+  #tooltip {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #c8c8c8;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #222;
+    max-width: 320px;
+  }
+  #legend {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    display: none;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #222;
+    max-width: 300px;
+  }
+  #legend .title { font-weight: bold; margin-bottom: 2px; }
+  #legend .universe { color: #777; font-size: 11px; margin-bottom: 6px; }
+  #legend .row { display: flex; align-items: center; margin: 2px 0; }
+  #legend .swatch {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    flex: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  #legend .method { color: #555; font-size: 11px; margin-top: 6px; }
+  #legend .source {
+    color: #999;
+    font-size: 10px;
+    margin-top: 6px;
+    overflow-wrap: break-word;
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="tooltip"></div>
+<div id="legend"></div>
+<script src="./assets/maplibre-gl.js"></script>
+<script>
+"use strict";
+
+// Offline statistical (choropleth) map: a plain background, no basemap tiles.
+// C# writes the payload to %LOCALAPPDATA%\CensusScope\map\current.json, which the
+// WebView2 host exposes at this virtual-host URL.
+var DATA_URL = "https://censusscope-data.example/current.json";
+
+// window.chrome.webview exists only when hosted in WebView2; guarded so the page
+// can be opened in a plain browser for debugging without throwing.
+var bridge = (window.chrome && window.chrome.webview) ? window.chrome.webview : null;
+
+function post(message) {
+  if (bridge) bridge.postMessage(message);
+}
+
+var map = new maplibregl.Map({
+  container: "map",
+  attributionControl: false,
+  style: {
+    version: 8,
+    sources: {},
+    layers: [
+      { id: "background", type: "background", paint: { "background-color": "#eef2f5" } }
+    ]
+  }
+});
+
+var tooltipEl = document.getElementById("tooltip");
+var legendEl = document.getElementById("legend");
+
+// displays[id] -> preformatted value string, kept for the hover tooltip.
+var displays = {};
+
+/**
+ * Classifies a value into one of the ramp colors. `breaks` may be either the
+ * interior thresholds (colors.length - 1 entries) or full bin edges including
+ * min and max (colors.length + 1 entries); both shapes are normalized here.
+ */
+function colorFor(value, breaks, colors, noDataColor) {
+  if (value === null || value === undefined || typeof value !== "number" || isNaN(value)) {
+    return noDataColor;
+  }
+  if (!colors.length) return noDataColor;
+  var thresholds = breaks;
+  if (breaks.length === colors.length + 1) {
+    thresholds = breaks.slice(1, breaks.length - 1);  // strip min and max edges
+  } else if (breaks.length === colors.length) {
+    thresholds = breaks.slice(0, breaks.length - 1);  // strip a trailing max edge
+  }
+  // Membership matches the C# classifier: a value equal to a break belongs to the LOWER class.
+  var i = 0;
+  while (i < thresholds.length && value > thresholds[i]) i++;
+  return colors[Math.min(i, colors.length - 1)];
+}
+
+/** Recursively folds a GeoJSON coordinate array into [minX, minY, maxX, maxY]. */
+function extendBounds(bounds, coords) {
+  if (typeof coords[0] === "number") {
+    if (coords[0] < bounds[0]) bounds[0] = coords[0];
+    if (coords[1] < bounds[1]) bounds[1] = coords[1];
+    if (coords[0] > bounds[2]) bounds[2] = coords[0];
+    if (coords[1] > bounds[3]) bounds[3] = coords[1];
+    return;
+  }
+  for (var i = 0; i < coords.length; i++) extendBounds(bounds, coords[i]);
+}
+
+function computeBounds(featureCollection) {
+  var bounds = [Infinity, Infinity, -Infinity, -Infinity];
+  var features = featureCollection.features || [];
+  for (var i = 0; i < features.length; i++) {
+    var geometry = features[i].geometry;
+    if (geometry && geometry.coordinates) extendBounds(bounds, geometry.coordinates);
+  }
+  return bounds;
+}
+
+function removeMapData() {
+  if (map.getLayer("areas-line")) map.removeLayer("areas-line");
+  if (map.getLayer("areas-fill")) map.removeLayer("areas-fill");
+  if (map.getSource("areas")) map.removeSource("areas");
+}
+
+function renderLegend(payload) {
+  legendEl.innerHTML = "";
+  var legend = payload.legend;
+  if (!legend) {
+    legendEl.style.display = "none";
+    return;
+  }
+
+  function addText(className, text) {
+    var el = document.createElement("div");
+    el.className = className;
+    el.textContent = text;
+    legendEl.appendChild(el);
+  }
+
+  function addRow(color, text) {
+    var row = document.createElement("div");
+    row.className = "row";
+    var swatch = document.createElement("span");
+    swatch.className = "swatch";
+    swatch.style.background = color;
+    var label = document.createElement("span");
+    label.textContent = text;
+    row.appendChild(swatch);
+    row.appendChild(label);
+    legendEl.appendChild(row);
+  }
+
+  if (legend.title) addText("title", legend.title);
+  if (legend.universe) addText("universe", legend.universe);
+
+  var classes = legend.classes || [];
+  for (var i = 0; i < classes.length; i++) {
+    addRow(classes[i].color, classes[i].label + " (" + classes[i].count + ")");
+  }
+  if (legend.noDataCount > 0) {
+    addRow(payload.noDataColor || "#d9d9d9", "No data (" + legend.noDataCount + ")");
+  }
+  if (legend.method) addText("method", legend.method);
+
+  var provenance = [legend.source, legend.attribution].filter(Boolean).join(" · ");
+  if (provenance) addText("source", provenance);
+
+  legendEl.style.display = "block";
+}
+
+/** Fetches current.json, joins values onto features, and (re)builds the layers. */
+async function load() {
+  try {
+    var response = await fetch(DATA_URL, { cache: "no-store" });
+    if (response.status === 404) return; // nothing rendered yet — not an error
+    if (!response.ok) throw new Error("HTTP " + response.status + " loading map data");
+    var payload = await response.json();
+
+    var featureCollection = payload.geojson;
+    if (!featureCollection || !Array.isArray(featureCollection.features)) {
+      throw new Error("Map payload contains no features.");
+    }
+
+    displays = payload.displays || {};
+    var values = payload.values || {};
+    var breaks = payload.breaks || [];
+    var colors = payload.colors || [];
+    var noDataColor = payload.noDataColor || "#d9d9d9";
+
+    // Precompute the fill color per feature so the fill layer is a plain
+    // ["get","color"] expression (null-valued features get the no-data color).
+    var features = featureCollection.features;
+    for (var i = 0; i < features.length; i++) {
+      var props = features[i].properties || (features[i].properties = {});
+      var value = Object.prototype.hasOwnProperty.call(values, props.id) ? values[props.id] : null;
+      props.value = value === undefined ? null : value;
+      props.color = colorFor(props.value, breaks, colors, noDataColor);
+    }
+
+    removeMapData();
+    map.addSource("areas", { type: "geojson", data: featureCollection });
+    map.addLayer({
+      id: "areas-fill",
+      type: "fill",
+      source: "areas",
+      paint: { "fill-color": ["get", "color"], "fill-opacity": 1 }
+    });
+    map.addLayer({
+      id: "areas-line",
+      type: "line",
+      source: "areas",
+      paint: { "line-color": "#8a8a8a", "line-width": 0.5 }
+    });
+
+    var bounds = computeBounds(featureCollection);
+    if (isFinite(bounds[0])) {
+      map.fitBounds([[bounds[0], bounds[1]], [bounds[2], bounds[3]]], { padding: 24, duration: 0 });
+    }
+
+    renderLegend(payload);
+    map.once("idle", function () {
+      post({ type: "rendered", areas: features.length });
+    });
+  } catch (error) {
+    post({ type: "error", message: String(error && error.message ? error.message : error) });
+  }
+}
+
+// ---------------------------------------------------------------- interaction
+
+function positionTooltip(point) {
+  var offset = 12;
+  var rect = tooltipEl.getBoundingClientRect();
+  var x = point.x + offset;
+  var y = point.y + offset;
+  if (x + rect.width > document.body.clientWidth - 4) x = point.x - rect.width - offset;
+  if (y + rect.height > document.body.clientHeight - 4) y = point.y - rect.height - offset;
+  tooltipEl.style.left = x + "px";
+  tooltipEl.style.top = y + "px";
+}
+
+map.on("mousemove", "areas-fill", function (e) {
+  var feature = e.features && e.features[0];
+  if (!feature) return;
+  map.getCanvas().style.cursor = "pointer";
+  var props = feature.properties || {};
+  tooltipEl.innerHTML = "";
+  var nameEl = document.createElement("div");
+  nameEl.style.fontWeight = "600";
+  nameEl.textContent = props.name || props.id || "";
+  var valueEl = document.createElement("div");
+  valueEl.textContent = Object.prototype.hasOwnProperty.call(displays, props.id)
+    ? displays[props.id]
+    : "—";
+  tooltipEl.appendChild(nameEl);
+  tooltipEl.appendChild(valueEl);
+  tooltipEl.style.display = "block";
+  positionTooltip(e.point);
+});
+
+map.on("mouseleave", "areas-fill", function () {
+  map.getCanvas().style.cursor = "";
+  tooltipEl.style.display = "none";
+});
+
+map.on("click", "areas-fill", function (e) {
+  var feature = e.features && e.features[0];
+  if (!feature) return;
+  var props = feature.properties || {};
+  post({ type: "click", id: props.id, name: props.name });
+});
+
+// C# posts {"type":"reload"} after rewriting current.json. Rendering happens ONLY on that
+// message: loading current.json at startup would show a stale map from a previous session
+// (and misattribute its "rendered" status to the current selection). A reload arriving
+// before the map style has finished loading is deferred until it has.
+var styleReady = false;
+var pendingReload = false;
+
+if (bridge) {
+  bridge.addEventListener("message", function (event) {
+    var data = event.data;
+    if (data && data.type === "reload") {
+      if (styleReady) load();
+      else pendingReload = true;
+    }
+  });
+}
+
+map.on("load", function () {
+  styleReady = true;
+  if (pendingReload) {
+    pendingReload = false;
+    load();
+  }
+});
+</script>
+</body>
+</html>
