@@ -1,5 +1,11 @@
 # US & Canada Demographic Data Browser
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D4)
+![UI](https://img.shields.io/badge/UI-WPF%20%2B%20MapLibre-blueviolet)
+![Tests](https://img.shields.io/badge/Tests-117%20passing-brightgreen)
+
 **[跳转到中文版 / Jump to Chinese version ↓](#中文版)**
 
 A Windows desktop app for exploring official demographic statistics — population, age,
@@ -145,11 +151,25 @@ Design rules the code follows:
 
 # 中文版
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D4)
+![UI](https://img.shields.io/badge/UI-WPF%20%2B%20MapLibre-blueviolet)
+![Tests](https://img.shields.io/badge/Tests-117%20passing-brightgreen)
+
+**[返回英文版 / Back to English version ↑](#us--canada-demographic-data-browser)**
+
 一个 Windows 桌面应用，用于浏览**美国每个州、县、市镇**和**加拿大每个省、普查区、市镇**的
 官方人口统计数据——人口、年龄、性别、收入、教育。数据实时来自两国国家统计机构，可导出
 CSV、绘制交互式地图，还能通过 Gemini API 用自然语言提问。
 
 技术栈：C# / WPF / .NET 10。MIT 协议开源。
+
+| 等值区域图（加拿大真实数据） | 对比表格 |
+|---|---|
+| ![地图视图](docs/screenshots/map-canada-density.png) | ![对比视图](docs/screenshots/compare-table.png) |
+
+---
 
 ## 它能做什么？
 
