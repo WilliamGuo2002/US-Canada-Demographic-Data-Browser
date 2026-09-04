@@ -1,3 +1,5 @@
+![US & Canada Demographic Data Browser](docs/banner.png)
+
 # US & Canada Demographic Data Browser
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -150,6 +152,8 @@ Design rules the code follows:
 ---
 
 # 中文版
+
+![US & Canada Demographic Data Browser](docs/banner.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)
